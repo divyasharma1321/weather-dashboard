@@ -136,3 +136,13 @@ function showError(message) {
         </div>
     `;
 }
+const clearBtn = document.getElementById('clearBtn');
+
+clearBtn.addEventListener('click', () => {
+    weatherDisplay.innerHTML = '';
+    cityInput.value = '';
+    clearBtn.style.display = 'none';
+});
+
+// In displayWeather function:
+clearBtn.style.display = 'inline-block';
