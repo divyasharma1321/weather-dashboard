@@ -31,3 +31,29 @@
     font-size: 1.3rem;
     font-weight: 700;
 }
+/* Unit Toggle */
+.unit-toggle {
+    display: flex;
+    gap: 10px;
+    margin-top: 10px;
+}
+
+.unit-option {
+    padding: 10px 20px;
+    border: 2px solid var(--bg-primary);
+    border-radius: 10px;
+    background: var(--bg-primary);
+    cursor: pointer;
+    transition: var(--transition);
+    font-weight: 600;
+}
+
+.unit-option.active {
+    background: var(--primary);
+    color: white;
+    border-color: var(--primary);
+}
+
+.unit-option:hover {
+    transform: scale(1.05);
+}
