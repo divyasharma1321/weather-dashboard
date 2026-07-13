@@ -35,8 +35,21 @@
       <svg viewBox="0 0 24 24" width="20" height="20"><path fill="currentColor" d="M15.5 14h-.79l-.28-.27a6.5 6.5 0 10-.7.7l.27.28v.79l5 5L20.49 19l-5-5zm-6 0a4.5 4.5 0 110-9 4.5 4.5 0 010 9z"/></svg>
     </button>
   </section>
+  <div class="recent-searches" id="recentSearches" aria-label="Recent searches"></div>
+
+  <section id="weatherDisplay" class="weather-display" aria-live="polite">
+    <p class="hint">Search a city above, or use your location, to see the sky right now.</p>
+  </section>
+
+  <section id="forecastDisplay" class="forecast-display"></section>
+
+  <footer class="app-footer">
+    <span>Data by OpenWeatherMap</span>
+  </footer>
 
 </main>
 
 </body>
+<script src="config.js"></script>
+<script src="script.js"></script>
 </html>
