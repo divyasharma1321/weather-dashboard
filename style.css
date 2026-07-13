@@ -107,3 +107,33 @@ body {
 .icon-btn.primary { background: var(--accent); color: #0b1120; }
 .icon-btn.primary:hover { filter: brightness(1.08); }
 .icon-btn:disabled { opacity: 0.5; cursor: wait; transform: none; }
+.weather-display {
+  background: var(--glass);
+  border: 1px solid var(--glass-border);
+  border-radius: var(--radius-lg);
+  backdrop-filter: blur(20px);
+  padding: 28px;
+  min-height: 120px;
+}
+
+.hint {
+  margin: 0;
+  color: var(--ink-dim);
+  font-size: 14px;
+  text-align: center;
+  padding: 20px 0;
+}
+
+.weather-card {
+  animation: cardIn 0.5s cubic-bezier(0.16, 1, 0.3, 1);
+  text-align: center;
+}
+@keyframes cardIn {
+  from { opacity: 0; transform: translateY(12px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+.wc-icon { width: 84px; height: 84px; margin: 0 auto 4px; }
+.wc-temp { font-family: var(--font-display); font-size: 56px; font-weight: 700; line-height: 1; letter-spacing: -0.02em; }
+.wc-city { font-family: var(--font-display); font-size: 20px; font-weight: 600; margin-top: 6px; }
+.wc-desc { color: var(--ink-dim); text-transform: capitalize; font-size: 14px; margin-top: 2px; }
