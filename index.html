@@ -20,6 +20,21 @@
     <h1 class="logo">Skyline</h1>
     <button class="unit-toggle" id="unitToggle" aria-label="Toggle temperature unit">°C</button>
   </header>
+  <section class="search-box" role="search">
+    <input
+      type="text"
+      id="cityInput"
+      placeholder="Search for a city..."
+      autocomplete="off"
+      aria-label="City name"
+    >
+    <button id="locateBtn" class="icon-btn" title="Use my location" aria-label="Use my current location">
+      <svg viewBox="0 0 24 24" width="20" height="20"><path fill="currentColor" d="M12 2a1 1 0 011 1v1.06A8.004 8.004 0 0119.94 11H21a1 1 0 010 2h-1.06A8.004 8.004 0 0113 19.94V21a1 1 0 01-2 0v-1.06A8.004 8.004 0 014.06 13H3a1 1 0 010-2h1.06A8.004 8.004 0 0111 4.06V3a1 1 0 011-1zm0 4a6 6 0 100 12 6 6 0 000-12zm0 3.2a2.8 2.8 0 110 5.6 2.8 2.8 0 010-5.6z"/></svg>
+    </button>
+    <button id="searchBtn" class="icon-btn primary" title="Search" aria-label="Search">
+      <svg viewBox="0 0 24 24" width="20" height="20"><path fill="currentColor" d="M15.5 14h-.79l-.28-.27a6.5 6.5 0 10-.7.7l.27.28v.79l5 5L20.49 19l-5-5zm-6 0a4.5 4.5 0 110-9 4.5 4.5 0 010 9z"/></svg>
+    </button>
+  </section>
 
 </main>
 
