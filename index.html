@@ -1,84 +1,19 @@
- <!DOCTYPE html>
+<!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Weather Dashboard</title>
-    <link rel="stylesheet" href="style.css">
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Skyline — Weather Dashboard</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@500;600;700&family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="style.css">
 </head>
 <body>
-    <div class="container">
-        <h1>🌤️ Weather Dashboard</h1>
-        <div class="search-box">
-            <input type="text" id="cityInput" placeholder="Enter city name...">
-            <button id="searchBtn">Search</button>
-            <button id="clearBtn" style="display:none;">Clear</button>
-        </div>
-        <div id="weatherDisplay">
-            <!-- Weather data will appear here -->
-        </div>
-    </div>
-    <!-- Weather Statistics -->
-<div class="weather-card statistics">
-    <div class="card-header">
-        <h2>Weather Statistics</h2>
-        <i class="fas fa-chart-bar"></i>
-    </div>
-    <div class="stats-grid">
-        <div class="stat-item">
-            <span class="stat-label">Today's High</span>
-            <span class="stat-value" id="todayHigh">--°C</span>
-        </div>
-        <div class="stat-item">
-            <span class="stat-label">Today's Low</span>
-            <span class="stat-value" id="todayLow">--°C</span>
-        </div>
-        <div class="stat-item">
-            <span class="stat-label">Average Temp</span>
-            <span class="stat-value" id="avgTemp">--°C</span>
-        </div>
-        <div class="stat-item">
-            <span class="stat-label">Rain Chance</span>
-            <span class="stat-value" id="rainChance">--%</span>
-        </div>
-        <div class="stat-item">
-            <span class="stat-label">Sunrise</span>
-            <span class="stat-value" id="sunrise">--:--</span>
-        </div>
-        <div class="stat-item">
-            <span class="stat-label">Sunset</span>
-            <span class="stat-value" id="sunset">--:--</span>
-        </div>
-    </div>
+
+<div class="sky" id="sky">
+  <div class="celestial" id="celestial"></div>
+  <div class="particles" id="particles"></div>
 </div>
-<div class="setting-group">
-    <h3>Temperature Unit</h3>
-    <div class="unit-toggle">
-        <button class="unit-option active" data-unit="metric">°C</button>
-        <button class="unit-option" data-unit="imperial">°F</button>
-        <button class="unit-option" data-unit="kelvin">K</button>
-    </div>
-</div>
-<div id="weatherMap">
-    <canvas id="mapCanvas" width="800" height="400"></canvas>
-    <div class="map-legend">
-        <span>❄️ Cold</span>
-        <span>🌤️ Mild</span>
-        <span>🔥 Hot</span>
-    </div>
-    <!-- Weather History -->
-<div class="weather-card history">
-    <div class="card-header">
-        <h2>Search History</h2>
-        <button id="clearHistory" class="clear-btn">
-            <i class="fas fa-trash"></i> Clear
-        </button>
-    </div>
-    <div id="historyList" class="history-list">
-        <p class="no-history">No search history yet</p>
-    </div>
-</div>
-</div>
-    <script src="script.js"></script>
+
 </body>
 </html>
