@@ -273,3 +273,16 @@ body {
   border-radius: 999px; cursor: pointer; transition: all 0.15s ease;
 }
 .chip:hover { background: rgba(255,255,255,0.2); color: var(--ink); }
+
+.forecast-display { display: flex; gap: 10px; overflow-x: auto; padding-bottom: 4px; }
+.forecast-display:empty { display: none; }
+
+.forecast-card {
+  flex: 1 0 84px; background: var(--glass); border: 1px solid var(--glass-border);
+  border-radius: var(--radius-md); backdrop-filter: blur(16px); padding: 14px 8px;
+  text-align: center; animation: cardIn 0.5s cubic-bezier(0.16, 1, 0.3, 1);
+}
+.forecast-day { font-size: 12px; color: var(--ink-dim); text-transform: uppercase; letter-spacing: 0.03em; }
+.forecast-icon { width: 36px; height: 36px; margin: 8px auto; }
+.forecast-temps { font-family: var(--font-display); font-size: 14px; font-weight: 600; }
+.forecast-temps .low { color: var(--ink-dim); font-weight: 500; margin-left: 4px; }
