@@ -111,3 +111,42 @@ function useMyLocation() {
     }
   );
 }
+// ---------- Rendering: loading & error ----------
+function showLoading() {
+  weatherDisplay.innerHTML = `
+    <div class="skeleton">
+      <div class="skel-block" style="width:84px;height:84px;border-radius:50%;"></div>
+      <div class="skel-block" style="width:120px;height:44px;"></div>
+      <div class="skel-block" style="width:160px;height:18px;"></div>
+    </div>
+  `;
+  forecastDisplay.innerHTML = "";
+}
+
+function handleError(err, retryFn) {
+  const key = err.message || "UNKNOWN";
+  showError({ message: key }, retryFn);
+}
+
+function showError({ message }, retryFn) {
+  const messages = {
+    NOT_FOUND: ["City not found", "Double-check the spelling and try again."],
+    SERVER_ERROR: ["Something went wrong", "The weather service didn't respond. Try again shortly."],
+    GEO_DENIED: ["Location access denied", "Allow location access, or search for a city instead."],
+    GEO_UNSUPPORTED: ["Location not supported", "Your browser doesn't support geolocation. Try searching instead."],
+    UNKNOWN: ["Network error", "Check your internet connection and try again."],
+  };
+  const [title, sub] = messages[message] || messages.UNKNOWN;
+
+  weatherDisplay.innerHTML = `
+    <div class="error-card">
+      <div class="error-title">⚠️ ${title}</div>
+      <div class="error-sub">${sub}</div>
+      ${retryFn ? `<button class="retry-btn" id="retryBtn">Try again</button>` : ""}
+    </div>
+  `;
+
+  if (retryFn) {
+    document.getElementById("retryBtn").addEventListener("click", retryFn);
+  }
+}
