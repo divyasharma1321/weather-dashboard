@@ -49,3 +49,65 @@ unitToggle.addEventListener("click", () => {
   if (lastCurrentData) renderWeather(lastCurrentData);
   if (lastForecastData) renderForecast(lastForecastData);
 });
+// ---------- Fetching ----------
+async function fetchByCity(city) {
+  showLoading();
+  try {
+    const [current, forecast] = await Promise.all([
+      fetchJSON(`${CURRENT_URL}?q=${encodeURIComponent(city)}&appid=${API_KEY}&units=metric`),
+      fetchJSON(`${FORECAST_URL}?q=${encodeURIComponent(city)}&appid=${API_KEY}&units=metric`),
+    ]);
+    handleSuccess(current, forecast);
+    saveSearch(current.name);
+  } catch (err) {
+    handleError(err, () => fetchByCity(city));
+  }
+}
+
+async function fetchByCoords(lat, lon) {
+  showLoading();
+  try {
+    const [current, forecast] = await Promise.all([
+      fetchJSON(`${CURRENT_URL}?lat=${lat}&lon=${lon}&appid=${API_KEY}&units=metric`),
+      fetchJSON(`${FORECAST_URL}?lat=${lat}&lon=${lon}&appid=${API_KEY}&units=metric`),
+    ]);
+    handleSuccess(current, forecast);
+    saveSearch(current.name);
+  } catch (err) {
+    handleError(err, () => fetchByCoords(lat, lon));
+  }
+}
+
+async function fetchJSON(url) {
+  const response = await fetch(url);
+  if (!response.ok) {
+    if (response.status === 404) throw new Error("NOT_FOUND");
+    throw new Error("SERVER_ERROR");
+  }
+  return response.json();
+}
+
+function handleSuccess(current, forecast) {
+  lastCurrentData = current;
+  lastForecastData = forecast;
+  renderWeather(current);
+  renderForecast(forecast);
+}
+
+function useMyLocation() {
+  if (!navigator.geolocation) {
+    showError({ message: "GEO_UNSUPPORTED" }, null);
+    return;
+  }
+  locateBtn.disabled = true;
+  navigator.geolocation.getCurrentPosition(
+    (pos) => {
+      locateBtn.disabled = false;
+      fetchByCoords(pos.coords.latitude, pos.coords.longitude);
+    },
+    () => {
+      locateBtn.disabled = false;
+      showError({ message: "GEO_DENIED" }, null);
+    }
+  );
+}
