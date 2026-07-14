@@ -150,3 +150,43 @@ function showError({ message }, retryFn) {
     document.getElementById("retryBtn").addEventListener("click", retryFn);
   }
 }
+// ---------- Rendering: current weather ----------
+function renderWeather(data) {
+  const { name, main, weather, wind, sys, dt } = data;
+  const condition = weather[0].main;
+  const description = weather[0].description;
+  const isDay = dt > sys.sunrise && dt < sys.sunset;
+
+  const temp = convertTemp(main.temp);
+  const feelsLike = convertTemp(main.feels_like);
+  const windSpeed = unit === "metric" ? Math.round(wind.speed * 3.6) : Math.round(wind.speed);
+
+  weatherDisplay.innerHTML = `
+    <div class="weather-card">
+      <div class="wc-icon">${weatherIconSVG(condition, isDay)}</div>
+      <div class="wc-temp">${temp}°</div>
+      <div class="wc-city">${escapeHTML(name)}</div>
+      <div class="wc-desc">${escapeHTML(description)}</div>
+      <div class="wc-details">
+        <div class="detail-item">
+          <span class="label">Feels like</span>
+          <span class="value">${feelsLike}°</span>
+        </div>
+        <div class="detail-item">
+          <span class="label">Humidity</span>
+          <span class="value">${main.humidity}%</span>
+        </div>
+        <div class="detail-item">
+          <span class="label">Wind</span>
+          <span class="value">${windSpeed}</span>
+        </div>
+      </div>
+      <div class="sun-times">
+        <span>🌅 Sunrise <strong>${formatTime(sys.sunrise)}</strong></span>
+        <span>🌇 Sunset <strong>${formatTime(sys.sunset)}</strong></span>
+      </div>
+    </div>
+  `;
+
+  updateSky(condition, isDay);
+}
