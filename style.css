@@ -264,3 +264,12 @@ body {
   color: var(--ink); padding: 8px 18px; border-radius: 999px; cursor: pointer; font-size: 13px; font-family: var(--font-body);
 }
 .retry-btn:hover { background: rgba(255,255,255,0.25); }
+.recent-searches { display: flex; flex-wrap: wrap; gap: 8px; }
+.recent-searches:empty { display: none; }
+
+.chip {
+  font-family: var(--font-body); font-size: 13px; background: rgba(255,255,255,0.10);
+  border: 1px solid var(--glass-border); color: var(--ink-dim); padding: 6px 14px;
+  border-radius: 999px; cursor: pointer; transition: all 0.15s ease;
+}
+.chip:hover { background: rgba(255,255,255,0.2); color: var(--ink); }
