@@ -480,3 +480,21 @@ function mistIcon() {
     </svg>
   `;
 }
+// ---------- Helpers ----------
+function convertTemp(celsius) {
+  if (unit === "imperial") return Math.round((celsius * 9) / 5 + 32);
+  return Math.round(celsius);
+}
+
+function formatTime(unixSeconds) {
+  return new Date(unixSeconds * 1000).toLocaleTimeString(undefined, {
+    hour: "2-digit",
+    minute: "2-digit",
+  });
+}
+
+function escapeHTML(str) {
+  const div = document.createElement("div");
+  div.textContent = str;
+  return div.innerHTML;
+}
