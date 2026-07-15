@@ -245,3 +245,129 @@ function renderRecentSearches() {
     });
   });
 }
+// ---------- Dynamic sky background ----------
+function updateSky(condition, isDay) {
+  const themes = {
+    Clear: isDay
+      ? "linear-gradient(180deg, #4a90d9 0%, #87ceeb 45%, #ffe5a8 100%)"
+      : "linear-gradient(180deg, #0b1120 0%, #131c31 55%, #1b2a4a 100%)",
+    Clouds: isDay
+      ? "linear-gradient(180deg, #7f97b3 0%, #c9d3de 100%)"
+      : "linear-gradient(180deg, #1e2634 0%, #38455a 100%)",
+    Rain: isDay
+      ? "linear-gradient(180deg, #4a5f72 0%, #6c8296 100%)"
+      : "linear-gradient(180deg, #0e161d 0%, #202f3b 100%)",
+    Drizzle: isDay
+      ? "linear-gradient(180deg, #5a7184 0%, #7c95a8 100%)"
+      : "linear-gradient(180deg, #101c24 0%, #23333f 100%)",
+    Thunderstorm: "linear-gradient(180deg, #1e1b2e 0%, #362f4d 100%)",
+    Snow: isDay
+      ? "linear-gradient(180deg, #c9d9e8 0%, #eef4f9 100%)"
+      : "linear-gradient(180deg, #1c2534 0%, #2f3f56 100%)",
+  };
+  const mistGroup = ["Mist", "Smoke", "Haze", "Dust", "Fog", "Sand", "Ash", "Squall", "Tornado"];
+
+  let gradient;
+  if (themes[condition]) {
+    gradient = themes[condition];
+  } else if (mistGroup.includes(condition)) {
+    gradient = isDay
+      ? "linear-gradient(180deg, #8a93a1 0%, #b7bfc9 100%)"
+      : "linear-gradient(180deg, #262c35 0%, #454e5c 100%)";
+  } else {
+    gradient = "linear-gradient(180deg, #2b3a55 0%, #4a5f80 100%)";
+  }
+
+  sky.style.background = gradient;
+  renderCelestial(condition, isDay);
+  renderParticles(condition, isDay);
+}
+
+function renderCelestial(condition, isDay) {
+  if (condition === "Clouds" || ["Rain", "Drizzle", "Thunderstorm", "Snow"].includes(condition)) {
+    celestial.innerHTML = "";
+    return;
+  }
+  if (isDay) {
+    celestial.innerHTML = `
+      <div class="sun">
+        <div class="sun-core"></div>
+        ${Array.from({ length: 8 })
+          .map((_, i) => `<div class="sun-ray" style="transform: translate(-50%,-50%) rotate(${i * 45}deg) translateY(-32px);"></div>`)
+          .join("")}
+      </div>
+    `;
+  } else {
+    celestial.innerHTML = `
+      <div class="moon"></div>
+      <div class="stars">
+        ${Array.from({ length: 18 })
+          .map(() => {
+            const top = Math.random() * 300 - 100;
+            const left = Math.random() * 300 - 220;
+            const delay = (Math.random() * 3).toFixed(1);
+            return `<div class="star" style="top:${top}px; left:${left}px; animation-delay:${delay}s;"></div>`;
+          })
+          .join("")}
+      </div>
+    `;
+  }
+}
+
+function renderParticles(condition, isDay) {
+  const rainGroup = ["Rain", "Drizzle", "Thunderstorm"];
+  const mistGroup = ["Mist", "Smoke", "Haze", "Dust", "Fog", "Sand", "Ash", "Squall", "Tornado"];
+
+  if (rainGroup.includes(condition)) {
+    const count = 40;
+    particles.innerHTML = Array.from({ length: count })
+      .map(() => {
+        const left = Math.random() * 100;
+        const duration = (0.5 + Math.random() * 0.6).toFixed(2);
+        const delay = (Math.random() * 2).toFixed(2);
+        return `<div class="raindrop" style="left:${left}%; animation-duration:${duration}s; animation-delay:${delay}s;"></div>`;
+      })
+      .join("");
+    if (condition === "Thunderstorm") {
+      particles.innerHTML += `<div class="flash"></div>`;
+    }
+  } else if (condition === "Snow") {
+    const count = 30;
+    particles.innerHTML = Array.from({ length: count })
+      .map(() => {
+        const left = Math.random() * 100;
+        const size = 3 + Math.random() * 4;
+        const duration = (4 + Math.random() * 4).toFixed(2);
+        const delay = (Math.random() * 4).toFixed(2);
+        return `<div class="snowflake" style="left:${left}%; width:${size}px; height:${size}px; animation-duration:${duration}s; animation-delay:${delay}s;"></div>`;
+      })
+      .join("");
+  } else if (mistGroup.includes(condition)) {
+    const count = 5;
+    particles.innerHTML = Array.from({ length: count })
+      .map((_, i) => {
+        const top = 15 + i * 15;
+        const width = 40 + Math.random() * 30;
+        const left = Math.random() * 40;
+        return `<div class="mist-line" style="top:${top}%; left:${left}%; width:${width}%;"></div>`;
+      })
+      .join("");
+  } else if (condition === "Clouds") {
+    particles.innerHTML = `
+      <div class="cloud" style="top:15%; left:-10%;">${cloudSVG(70)}</div>
+      <div class="cloud" style="top:28%; left:40%; animation-delay:-20s; opacity:0.7;">${cloudSVG(50)}</div>
+    `;
+  } else {
+    particles.innerHTML = "";
+  }
+}
+
+function cloudSVG(size) {
+  return `
+    <svg width="${size}" height="${size * 0.6}" viewBox="0 0 64 40">
+      <ellipse cx="20" cy="26" rx="14" ry="11" fill="#ffffff"/>
+      <ellipse cx="34" cy="20" rx="17" ry="15" fill="#ffffff"/>
+      <rect x="12" y="24" width="38" height="13" rx="6.5" fill="#ffffff"/>
+    </svg>
+  `;
+}
