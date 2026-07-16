@@ -9,6 +9,7 @@ let recentSearches = JSON.parse(localStorage.getItem("recentSearches")) || [];
 let lastCurrentData = null;
 let lastForecastData = null;
 let iconCounter = 0;
+let isLoading = false;
 
 // ---------- DOM references ----------
 const cityInput = document.getElementById("cityInput");
@@ -51,6 +52,9 @@ unitToggle.addEventListener("click", () => {
 });
 // ---------- Fetching ----------
 async function fetchByCity(city) {
+  if (isLoading) return;
+  isLoading = true;
+  searchBtn.disabled = true;
   showLoading();
   try {
     const [current, forecast] = await Promise.all([
@@ -59,10 +63,15 @@ async function fetchByCity(city) {
     ]);
     handleSuccess(current, forecast);
     saveSearch(current.name);
-  } catch (err) {
+} catch (err) {
     handleError(err, () => fetchByCity(city));
+  } finally {
+    isLoading = false;
+    searchBtn.disabled = false;
   }
 }
+
+async function fetchByCoords(lat, lon) {
 
 async function fetchByCoords(lat, lon) {
   showLoading();
