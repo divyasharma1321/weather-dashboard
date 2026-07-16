@@ -90,8 +90,10 @@ async function fetchJSON(url) {
 function handleSuccess(current, forecast) {
   lastCurrentData = current;
   lastForecastData = forecast;
+  lastUpdatedAt = Date.now();
   renderWeather(current);
   renderForecast(forecast);
+  updateFooterTimestamp();
 }
 
 function useMyLocation() {
@@ -507,3 +509,15 @@ function getLocalTime(dt, timezoneOffsetSeconds) {
     timeZone: "UTC",
   });
 }
+// ---------- Last updated timestamp ----------
+let lastUpdatedAt = null;
+const footerText = document.getElementById("footerText");
+
+function updateFooterTimestamp() {
+  if (!lastUpdatedAt) return;
+  const minutesAgo = Math.floor((Date.now() - lastUpdatedAt) / 60000);
+  const label = minutesAgo < 1 ? "just now" : `${minutesAgo} min ago`;
+  footerText.textContent = `Data by OpenWeatherMap · Updated ${label}`;
+}
+
+setInterval(updateFooterTimestamp, 30000);
