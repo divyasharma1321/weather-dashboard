@@ -247,15 +247,32 @@ function saveSearch(city) {
 
 function renderRecentSearches() {
   recentSearchesEl.innerHTML = recentSearches
-    .map((city) => `<button class="chip" data-city="${escapeHTML(city)}">${escapeHTML(city)}</button>`)
+    .map(
+      (city) => `
+      <span class="chip">
+        <button class="chip-label" data-city="${escapeHTML(city)}">${escapeHTML(city)}</button>
+        <button class="chip-remove" data-city="${escapeHTML(city)}" aria-label="Remove ${escapeHTML(city)}">✕</button>
+      </span>
+    `
+    )
     .join("");
 
-  recentSearchesEl.querySelectorAll(".chip").forEach((btn) => {
+  recentSearchesEl.querySelectorAll(".chip-label").forEach((btn) => {
     btn.addEventListener("click", () => {
       cityInput.value = btn.dataset.city;
       fetchByCity(btn.dataset.city);
     });
   });
+
+  recentSearchesEl.querySelectorAll(".chip-remove").forEach((btn) => {
+    btn.addEventListener("click", () => removeSearch(btn.dataset.city));
+  });
+}
+
+function removeSearch(city) {
+  recentSearches = recentSearches.filter((c) => c !== city);
+  localStorage.setItem("recentSearches", JSON.stringify(recentSearches));
+  renderRecentSearches();
 }
 // ---------- Dynamic sky background ----------
 function updateSky(condition, isDay) {
