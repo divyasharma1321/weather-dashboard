@@ -588,3 +588,9 @@ function renderAirQuality(data) {
   badge.innerHTML = `Air Quality: <strong style="color:${color}">${label}</strong>`;
   card.appendChild(badge);
 }
+// ---------- Auto-refresh ----------
+setInterval(() => {
+  if (!lastCurrentData) return;
+  const { lat, lon } = lastCurrentData.coord;
+  fetchByCoords(lat, lon);
+}, 10 * 60 * 1000);
