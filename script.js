@@ -547,3 +547,10 @@ function updateFooterTimestamp() {
 }
 
 setInterval(updateFooterTimestamp, 30000);
+// ---------- Clear all recent searches ----------
+const clearSearchesBtn = document.getElementById("clearSearchesBtn");
+clearSearchesBtn.addEventListener("click", () => {
+  recentSearches = [];
+  localStorage.setItem("recentSearches", JSON.stringify(recentSearches));
+  renderRecentSearches();
+});
