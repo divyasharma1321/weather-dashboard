@@ -565,3 +565,26 @@ clearSearchesBtn.addEventListener("click", () => {
   localStorage.setItem("recentSearches", JSON.stringify(recentSearches));
   renderRecentSearches();
 });
+// ---------- Rendering: air quality ----------
+function renderAirQuality(data) {
+  const aqi = data.list[0].main.aqi; // 1 (Good) to 5 (Very Poor)
+  const labels = {
+    1: ["Good", "#4ade80"],
+    2: ["Fair", "#a3e635"],
+    3: ["Moderate", "#facc15"],
+    4: ["Poor", "#fb923c"],
+    5: ["Very Poor", "#ff6b6b"],
+  };
+  const [label, color] = labels[aqi] || ["Unknown", "#b9c6e0"];
+
+  const existing = document.querySelector(".aqi-badge");
+  if (existing) existing.remove();
+
+  const card = document.querySelector(".weather-card");
+  if (!card) return;
+
+  const badge = document.createElement("div");
+  badge.className = "aqi-badge";
+  badge.innerHTML = `Air Quality: <strong style="color:${color}">${label}</strong>`;
+  card.appendChild(badge);
+}
