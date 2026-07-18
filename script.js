@@ -42,6 +42,13 @@ cityInput.addEventListener("keypress", (e) => {
   }
 });
 
+cityInput.addEventListener("keydown", (e) => {
+  if (e.key === "Escape") {
+    cityInput.value = "";
+    cityInput.blur();
+  }
+});
+
 locateBtn.addEventListener("click", useMyLocation);
 
 unitToggle.addEventListener("click", () => {
