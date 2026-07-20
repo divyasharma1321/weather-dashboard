@@ -626,3 +626,7 @@ document.addEventListener("keydown", (e) => {
     cityInput.focus();
   }
 });
+// ---------- Offline detection ----------
+window.addEventListener("offline", () => {
+  showError({ message: "OFFLINE" }, null);
+});
