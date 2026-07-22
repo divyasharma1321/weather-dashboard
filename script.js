@@ -673,3 +673,12 @@ function updateURL(city) {
 }
 
 window.addEventListener("load", loadCityFromURL);
+function getLocalDate(dt, timezoneOffsetSeconds) {
+  const localMs = (dt + timezoneOffsetSeconds) * 1000;
+  return new Date(localMs).toLocaleDateString("en-US", {
+    weekday: "short",
+    month: "short",
+    day: "numeric",
+    timeZone: "UTC",
+  });
+}
