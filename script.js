@@ -659,3 +659,17 @@ function renderFavorites() {
   });
 }
 renderFavorites();
+// ---------- Shareable URL support ----------
+function loadCityFromURL() {
+  const params = new URLSearchParams(window.location.search);
+  const cityParam = params.get("city");
+  if (cityParam) fetchByCity(cityParam);
+}
+
+function updateURL(city) {
+  const url = new URL(window.location);
+  url.searchParams.set("city", city);
+  window.history.replaceState({}, "", url);
+}
+
+window.addEventListener("load", loadCityFromURL);
