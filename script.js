@@ -636,3 +636,26 @@ window.addEventListener("load", () => {
     fetchByCity(recentSearches[0]);
   }
 });
+// ---------- Favorite cities ----------
+let favorites = JSON.parse(localStorage.getItem("favorites")) || [];
+const favoritesRow = document.getElementById("favoritesRow");
+
+function toggleFavorite(city) {
+  if (favorites.includes(city)) {
+    favorites = favorites.filter((c) => c !== city);
+  } else {
+    favorites.push(city);
+  }
+  localStorage.setItem("favorites", JSON.stringify(favorites));
+  renderFavorites();
+}
+
+function renderFavorites() {
+  favoritesRow.innerHTML = favorites
+    .map((city) => `<button class="favorite-chip" data-city="${escapeHTML(city)}">⭐ ${escapeHTML(city)}</button>`)
+    .join("");
+  favoritesRow.querySelectorAll(".favorite-chip").forEach((btn) => {
+    btn.addEventListener("click", () => fetchByCity(btn.dataset.city));
+  });
+}
+renderFavorites();
