@@ -392,3 +392,26 @@ body.light-mode { --ink: #1a2436; --ink-dim: #566175; --glass: rgba(0,0,0,0.05);
   padding: 1px 6px;
   font-family: monospace;
 }
+.favorites-row {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+}
+.favorites-row:empty { display: none; }
+.favorite-chip {
+  background: rgba(255, 211, 92, 0.15);
+  border: 1px solid rgba(255, 211, 92, 0.4);
+  color: #ffd35c;
+  font-size: 13px;
+  padding: 6px 14px;
+  border-radius: 999px;
+  cursor: pointer;
+}
+.favorite-chip:hover { background: rgba(255, 211, 92, 0.25); }
+.favorite-star {
+  background: none;
+  border: none;
+  cursor: pointer;
+  font-size: 18px;
+  margin-top: 10px;
+}
