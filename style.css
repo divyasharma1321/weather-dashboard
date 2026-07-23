@@ -415,3 +415,14 @@ body.light-mode { --ink: #1a2436; --ink-dim: #566175; --glass: rgba(0,0,0,0.05);
   font-size: 18px;
   margin-top: 10px;
 }
+.progress-bar {
+  position: fixed;
+  top: 0; left: 0;
+  height: 3px;
+  width: 0%;
+  background: var(--accent);
+  z-index: 999;
+  transition: width 0.3s ease, opacity 0.3s ease;
+}
+.progress-bar.active { width: 70%; }
+.progress-bar.done { width: 100%; opacity: 0; }
