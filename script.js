@@ -703,3 +703,5 @@ function finishProgress() {
   progressBar.classList.remove("active");
   progressBar.classList.add("done");
 }
+// ---------- Footer year ----------
+document.getElementById("footerYear").textContent = `© ${new Date().getFullYear()} Skyline`;
