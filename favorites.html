@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Favorites — Skyline</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@500;600;700&family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+<main class="app" role="main">
+
+  <nav class="site-nav">
+    <a href="index.html" class="nav-link">Home</a>
+    <a href="favorites.html" class="nav-link active">Favorites</a>
+    <a href="about.html" class="nav-link">About</a>
+  </nav>
+
+  <header class="app-header">
+    <h1 class="logo">Your Favorite Cities</h1>
+  </header>
+
+  <section id="favoritesList" class="weather-display">
+    <p class="hint">No favorites yet — star a city from the home page to save it here.</p>
+  </section>
+
+</main>
+
+<script>
+  const favorites = JSON.parse(localStorage.getItem("favorites")) || [];
+  const container = document.getElementById("favoritesList");
+
+  if (favorites.length > 0) {
+    container.innerHTML = favorites
+      .map(
+        (city) => `
+        <a href="index.html?city=${encodeURIComponent(city)}" style="
+          display:block; text-decoration:none; color:var(--ink);
+          background:rgba(255,255,255,0.08); padding:14px 18px; border-radius:12px;
+          margin-bottom:10px; font-family:var(--font-display); font-size:15px;
+        ">⭐ ${city}</a>
+      `
+      )
+      .join("");
+  }
+</script>
+</body>
+</html>
